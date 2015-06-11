@@ -12,7 +12,9 @@ namespace glcxx
 
             ~Shader();
 
-            void create(GLenum shaderType, const char *source);
+            void create(GLenum shader_type, const char * source, int length = -1);
+
+            void create_from_file(GLenum shader_type, const char * filename);
 
             GLuint id() const { return m_id; }
 
