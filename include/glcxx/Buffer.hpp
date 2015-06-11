@@ -12,7 +12,7 @@ namespace glcxx
 
             ~Buffer();
 
-            void create(GLenum target, GLenum usage, const void *ptr, size_t sz);
+            void create(GLenum target, GLenum usage, const void * ptr, size_t size);
 
             GLuint id() const { return m_id; }
 

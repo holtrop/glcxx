@@ -16,7 +16,7 @@ namespace glcxx
         }
     }
 
-    void Buffer::create(GLenum target, GLenum usage, const void *ptr, size_t sz)
+    void Buffer::create(GLenum target, GLenum usage, const void * ptr, size_t size)
     {
         m_target = target;
         glGenBuffers(1, &m_id);
@@ -25,6 +25,6 @@ namespace glcxx
             throw Error("Failed to allocate an OpenGL buffer");
         }
         bind();
-        glBufferData(target, sz, ptr, usage);
+        glBufferData(target, size, ptr, usage);
     }
 }
