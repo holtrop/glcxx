@@ -1,15 +1,32 @@
 #include <SDL.h>
 #include GLCXX_GL_INCLUDE
 #include <iostream>
+#include "glcxx.hpp"
 
 using namespace std;
 
 #define WIDTH   800
 #define HEIGHT  600
 
-void init(void)
+shared_ptr<glcxx::Shader> vs;
+shared_ptr<glcxx::Shader> fs;
+shared_ptr<glcxx::Program> program;
+
+bool init(void)
 {
     glClearColor (0.0, 0.0, 0.0, 0.0);
+    try
+    {
+        vs->create_from_file(GL_VERTEX_SHADER, "test/vert.glsl");
+        fs->create_from_file(GL_FRAGMENT_SHADER, "test/frag.glsl");
+        program->create(vs, fs);
+    }
+    catch (glcxx::Error & e)
+    {
+        cerr << "glcxx error: " << e.what() << endl;
+        return false;
+    }
+    return true;
 }
 
 void display(SDL_Window * window)
@@ -54,7 +71,10 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    init();
+    if (!init())
+    {
+        return 1;
+    }
     display(window);
 
     SDL_Event event;
