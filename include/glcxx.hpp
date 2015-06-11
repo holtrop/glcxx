@@ -4,5 +4,6 @@
 #include "glcxx/Buffer.hpp"
 #include "glcxx/Program.hpp"
 #include "glcxx/Shader.hpp"
+#include "glcxx/Error.hpp"
 
 #endif
