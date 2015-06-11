@@ -17,6 +17,9 @@ bool init(void)
     glClearColor (0.0, 0.0, 0.0, 0.0);
     try
     {
+        vs = make_shared<glcxx::Shader>();
+        fs = make_shared<glcxx::Shader>();
+        program = make_shared<glcxx::Program>();
         vs->create_from_file(GL_VERTEX_SHADER, "test/vert.glsl");
         fs->create_from_file(GL_FRAGMENT_SHADER, "test/frag.glsl");
         program->create(vs, fs);
@@ -58,7 +61,13 @@ int main(int argc, char *argv[])
         return 2;
     }
 
-    SDL_GL_CreateContext(window);
+    SDL_GLContext gl_context = SDL_GL_CreateContext(window);
+    if (gl_context == NULL)
+    {
+        cerr << "Failed to create OpenGL context" << endl;
+        return 1;
+    }
+    SDL_GL_MakeCurrent(window, gl_context);
 
     if (gl3wInit())
     {
