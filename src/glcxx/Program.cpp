@@ -49,16 +49,4 @@ namespace glcxx
             throw Error(message);
         }
     }
-
-#if 0
-    for (;;)
-    {
-        const char *uniform_name = va_arg(va, const char *);
-        if (uniform_name == NULL)
-            break;
-        GLint loc = glGetUniformLocation(m_id, uniform_name);
-        m_uniform_locations.push_back(loc);
-        m_uniform_location_names[uniform_name] = loc;
-    }
-#endif
 }

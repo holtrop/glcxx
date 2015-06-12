@@ -48,6 +48,8 @@ void display(SDL_Window * window)
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), NULL);
     program->use();
+    GLint uniform_location = program->get_uniform_location("color");
+    glUniform4f(uniform_location, 1.0, 0.6, 0.2, 1.0);
     glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
     SDL_GL_SwapWindow(window);
 }

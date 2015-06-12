@@ -54,6 +54,11 @@ namespace glcxx
                 bind_attributes(args...);
             }
 
+            GLint get_uniform_location(const char * uniform_name)
+            {
+                return glGetUniformLocation(m_id, uniform_name);
+            }
+
         protected:
             void allocate();
 
