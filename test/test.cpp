@@ -11,6 +11,7 @@ using namespace std;
 shared_ptr<glcxx::Shader> vs;
 shared_ptr<glcxx::Shader> fs;
 shared_ptr<glcxx::Program> program;
+shared_ptr<glcxx::Buffer> buffer;
 
 bool init(void)
 {
@@ -20,9 +21,18 @@ bool init(void)
         vs = make_shared<glcxx::Shader>();
         fs = make_shared<glcxx::Shader>();
         program = make_shared<glcxx::Program>();
+        buffer = make_shared<glcxx::Buffer>();
+
         vs->create_from_file(GL_VERTEX_SHADER, "test/vert.glsl");
         fs->create_from_file(GL_FRAGMENT_SHADER, "test/frag.glsl");
         program->create(vs, fs);
+        GLfloat coords[] = {
+            -0.5, -0.5,
+            0.5, -0.5,
+            0.5, 0.5,
+            -0.5, 0.5
+        };
+        buffer->create(GL_ARRAY_BUFFER, GL_STATIC_DRAW, &coords, sizeof(coords));
     }
     catch (glcxx::Error & e)
     {
@@ -35,6 +45,10 @@ bool init(void)
 void display(SDL_Window * window)
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), NULL);
+    program->use();
+    glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
     SDL_GL_SwapWindow(window);
 }
 
