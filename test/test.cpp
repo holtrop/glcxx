@@ -9,9 +9,14 @@ using namespace std;
 #define HEIGHT  600
 
 shared_ptr<glcxx::Shader> vs;
+shared_ptr<glcxx::Shader> vs2;
 shared_ptr<glcxx::Shader> fs;
+shared_ptr<glcxx::Shader> fs2;
 shared_ptr<glcxx::Program> program;
+shared_ptr<glcxx::Program> program2;
 shared_ptr<glcxx::Buffer> buffer;
+shared_ptr<glcxx::Buffer> buffer2;
+shared_ptr<glcxx::Buffer> buffer3;
 
 bool init(void)
 {
@@ -19,20 +24,46 @@ bool init(void)
     try
     {
         vs = make_shared<glcxx::Shader>();
+        vs2 = make_shared<glcxx::Shader>();
         fs = make_shared<glcxx::Shader>();
+        fs2 = make_shared<glcxx::Shader>();
         program = make_shared<glcxx::Program>();
+        program2 = make_shared<glcxx::Program>();
         buffer = make_shared<glcxx::Buffer>();
+        buffer2 = make_shared<glcxx::Buffer>();
+        buffer3 = make_shared<glcxx::Buffer>();
 
         vs->create_from_file(GL_VERTEX_SHADER, "test/vert.glsl");
         fs->create_from_file(GL_FRAGMENT_SHADER, "test/frag.glsl");
         program->create(vs, fs);
+//        program->bind_attribute("position", 0);
+
+        vs2->create_from_file(GL_VERTEX_SHADER, "test/vert2.glsl");
+        fs2->create_from_file(GL_FRAGMENT_SHADER, "test/frag2.glsl");
+        program2->create(vs2, fs2);
+//        program2->bind_attribute("position", 0);
+//        program2->bind_attribute("color", 1);
+
         GLfloat coords[] = {
             -0.5, -0.5,
             0.5, -0.5,
             0.5, 0.5,
-            -0.5, 0.5
+            -0.5, 0.5,
         };
         buffer->create(GL_ARRAY_BUFFER, GL_STATIC_DRAW, &coords, sizeof(coords));
+
+        GLfloat coords2[] = {
+            0.2, 0.2,
+            0.9, 0.2,
+            0.9, 0.9,
+        };
+        buffer2->create(GL_ARRAY_BUFFER, GL_STATIC_DRAW, &coords2, sizeof(coords2));
+        GLfloat colors[] = {
+            1.0, 0.1, 0.1, 1.0,
+            0.1, 1.0, 0.1, 1.0,
+            0.1, 0.1, 1.0, 1.0,
+        };
+        buffer3->create(GL_ARRAY_BUFFER, GL_STATIC_DRAW, &colors, sizeof(colors));
     }
     catch (glcxx::Error & e)
     {
@@ -45,12 +76,23 @@ bool init(void)
 void display(SDL_Window * window)
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
     glEnableVertexAttribArray(0);
+    buffer->bind();
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), NULL);
     program->use();
     GLint uniform_location = program->get_uniform_location("color");
     glUniform4f(uniform_location, 1.0, 0.6, 0.2, 1.0);
     glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
+
+    glEnableVertexAttribArray(1);
+    buffer2->bind();
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), NULL);
+    buffer3->bind();
+    glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), NULL);
+    program2->use();
+    glDrawArrays(GL_TRIANGLE_FAN, 0, 3);
+
     SDL_GL_SwapWindow(window);
 }
 
