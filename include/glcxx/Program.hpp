@@ -42,18 +42,6 @@ namespace glcxx
                 glAttachShader(m_id, shader->id());
             }
 
-            void bind_attribute(const char * name, GLuint index) const
-            {
-                glBindAttribLocation(m_id, index, name);
-            }
-
-            template <typename... Args>
-            void bind_attributes(const char * name, GLuint index, Args... args) const
-            {
-                bind_attribute(name, index);
-                bind_attributes(args...);
-            }
-
             GLint get_uniform_location(const char * uniform_name)
             {
                 return glGetUniformLocation(m_id, uniform_name);
@@ -64,10 +52,31 @@ namespace glcxx
 
             void _create() const;
 
-            template <typename T, typename... Shaders>
-            void _create(T shader, Shaders... args) const
+            template <typename... Shaders>
+            void _create(const Shader & shader, Shaders... args) const
             {
                 attach_shader(shader);
+                _create(args...);
+            }
+
+            template <typename... Shaders>
+            void _create(std::unique_ptr<Shader> shader, Shaders... args) const
+            {
+                attach_shader(shader);
+                _create(args...);
+            }
+
+            template <typename... Shaders>
+            void _create(std::shared_ptr<Shader> shader, Shaders... args) const
+            {
+                attach_shader(shader);
+                _create(args...);
+            }
+
+            template <typename... Shaders>
+            void _create(const char * attribute_name, GLuint index, Shaders... args) const
+            {
+                glBindAttribLocation(m_id, index, attribute_name);
                 _create(args...);
             }
 
