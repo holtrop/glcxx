@@ -35,14 +35,14 @@ bool init(void)
 
         vs->create_from_file(GL_VERTEX_SHADER, "test/vert.glsl");
         fs->create_from_file(GL_FRAGMENT_SHADER, "test/frag.glsl");
-        program->create(vs, fs);
-//        program->bind_attribute("position", 0);
+        program->create(vs, fs,
+                        "position", 0);
 
         vs2->create_from_file(GL_VERTEX_SHADER, "test/vert2.glsl");
         fs2->create_from_file(GL_FRAGMENT_SHADER, "test/frag2.glsl");
-        program2->create(vs2, fs2);
-//        program2->bind_attribute("position", 0);
-//        program2->bind_attribute("color", 1);
+        program2->create(vs2, fs2,
+                         "position", 0,
+                         "color", 1);
 
         GLfloat coords[] = {
             -0.5, -0.5,
