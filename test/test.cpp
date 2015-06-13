@@ -8,6 +8,8 @@ using namespace std;
 #define WIDTH   800
 #define HEIGHT  600
 
+shared_ptr<glcxx::Array> array1;
+shared_ptr<glcxx::Array> array2;
 shared_ptr<glcxx::Shader> vs;
 shared_ptr<glcxx::Shader> vs2;
 shared_ptr<glcxx::Shader> fs;
@@ -23,6 +25,10 @@ bool init(void)
     glClearColor (0.0, 0.0, 0.0, 0.0);
     try
     {
+        array1 = make_shared<glcxx::Array>();
+        array2 = make_shared<glcxx::Array>();
+        array1->create();
+        array2->create();
         vs = make_shared<glcxx::Shader>();
         vs2 = make_shared<glcxx::Shader>();
         fs = make_shared<glcxx::Shader>();
@@ -64,6 +70,19 @@ bool init(void)
             0.1, 0.1, 1.0, 1.0,
         };
         buffer3->create(GL_ARRAY_BUFFER, GL_STATIC_DRAW, &colors, sizeof(colors));
+
+        array1->bind();
+        glEnableVertexAttribArray(0);
+        buffer->bind();
+        glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), NULL);
+
+        array2->bind();
+        glEnableVertexAttribArray(0);
+        glEnableVertexAttribArray(1);
+        buffer2->bind();
+        glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), NULL);
+        buffer3->bind();
+        glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), NULL);
     }
     catch (glcxx::Error & e)
     {
@@ -77,19 +96,13 @@ void display(SDL_Window * window)
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    glEnableVertexAttribArray(0);
-    buffer->bind();
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), NULL);
+    array1->bind();
     program->use();
     GLint uniform_location = program->get_uniform_location("color");
     glUniform4f(uniform_location, 1.0, 0.6, 0.2, 1.0);
     glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
 
-    glEnableVertexAttribArray(1);
-    buffer2->bind();
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), NULL);
-    buffer3->bind();
-    glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), NULL);
+    array2->bind();
     program2->use();
     glDrawArrays(GL_TRIANGLE_FAN, 0, 3);
 
