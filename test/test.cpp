@@ -27,28 +27,14 @@ bool init(void)
     {
         array1 = make_shared<glcxx::Array>();
         array2 = make_shared<glcxx::Array>();
-        array1->create();
-        array2->create();
-        vs = make_shared<glcxx::Shader>();
-        vs2 = make_shared<glcxx::Shader>();
-        fs = make_shared<glcxx::Shader>();
-        fs2 = make_shared<glcxx::Shader>();
-        program = make_shared<glcxx::Program>();
-        program2 = make_shared<glcxx::Program>();
-        buffer = make_shared<glcxx::Buffer>();
-        buffer2 = make_shared<glcxx::Buffer>();
-        buffer3 = make_shared<glcxx::Buffer>();
 
-        vs->create_from_file(GL_VERTEX_SHADER, "test/vert.glsl");
-        fs->create_from_file(GL_FRAGMENT_SHADER, "test/frag.glsl");
-        program->create(vs, fs,
-                        "position", 0);
+        vs = glcxx::Shader::create_from_file(GL_VERTEX_SHADER, "test/vert.glsl");
+        fs = glcxx::Shader::create_from_file(GL_FRAGMENT_SHADER, "test/frag.glsl");
+        program = glcxx::Program::create(vs, fs, "position", 0);
 
-        vs2->create_from_file(GL_VERTEX_SHADER, "test/vert2.glsl");
-        fs2->create_from_file(GL_FRAGMENT_SHADER, "test/frag2.glsl");
-        program2->create(vs2, fs2,
-                         "position", 0,
-                         "color", 1);
+        vs2 = glcxx::Shader::create_from_file(GL_VERTEX_SHADER, "test/vert2.glsl");
+        fs2 = glcxx::Shader::create_from_file(GL_FRAGMENT_SHADER, "test/frag2.glsl");
+        program2 = glcxx::Program::create(vs2, fs2, "position", 0, "color", 1);
 
         GLfloat coords[] = {
             -0.5, -0.5,
@@ -56,20 +42,20 @@ bool init(void)
             0.5, 0.5,
             -0.5, 0.5,
         };
-        buffer->create(GL_ARRAY_BUFFER, GL_STATIC_DRAW, &coords, sizeof(coords));
+        buffer = glcxx::Buffer::create(GL_ARRAY_BUFFER, GL_STATIC_DRAW, &coords, sizeof(coords));
 
         GLfloat coords2[] = {
             0.2, 0.2,
             0.9, 0.2,
             0.9, 0.9,
         };
-        buffer2->create(GL_ARRAY_BUFFER, GL_STATIC_DRAW, &coords2, sizeof(coords2));
+        buffer2 = glcxx::Buffer::create(GL_ARRAY_BUFFER, GL_STATIC_DRAW, &coords2, sizeof(coords2));
         GLfloat colors[] = {
             1.0, 0.1, 0.1, 1.0,
             0.1, 1.0, 0.1, 1.0,
             0.1, 0.1, 1.0, 1.0,
         };
-        buffer3->create(GL_ARRAY_BUFFER, GL_STATIC_DRAW, &colors, sizeof(colors));
+        buffer3 = glcxx::Buffer::create(GL_ARRAY_BUFFER, GL_STATIC_DRAW, &colors, sizeof(colors));
 
         array1->bind();
         glEnableVertexAttribArray(0);

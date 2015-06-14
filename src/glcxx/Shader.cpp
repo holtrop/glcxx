@@ -6,28 +6,20 @@
 
 namespace glcxx
 {
-    Shader::Shader()
+    Shader::Shader(GLenum shader_type)
     {
-        m_id = 0u;
+        m_shader_type = shader_type;
+        allocate();
     }
 
     Shader::~Shader()
     {
-        if (m_id > 0u)
-        {
-            glDeleteShader(m_id);
-        }
+        glDeleteShader(m_id);
     }
 
-    void Shader::create(GLenum shader_type, const char * source, int length)
+    void Shader::set_source(const char * source, int length)
     {
         GLint status;
-
-        m_id = glCreateShader(shader_type);
-        if (m_id == 0u)
-        {
-            throw Error("Failed to allocate an OpenGL shader");
-        }
 
         GLint lengths[1] = {length};
         glShaderSource(m_id, 1, &source, &lengths[0]);
@@ -41,7 +33,7 @@ namespace glcxx
         }
 
         std::string message = "Error compiling ";
-        switch (shader_type)
+        switch (m_shader_type)
         {
             case GL_VERTEX_SHADER:
                 message += "vertex";
@@ -70,7 +62,7 @@ namespace glcxx
         throw Error(message);
     }
 
-    void Shader::create_from_file(GLenum shader_type, const char * filename)
+    void Shader::set_source_from_file(const char * filename)
     {
         std::ifstream ifs;
         ifs.open(filename);
@@ -83,6 +75,15 @@ namespace glcxx
         ifs.seekg(0, ifs.beg);
         std::vector<char> file_contents(length);
         ifs.read(&file_contents[0], length);
-        create(shader_type, &file_contents[0], length);
+        set_source(&file_contents[0], length);
+    }
+
+    void Shader::allocate()
+    {
+        m_id = glCreateShader(m_shader_type);
+        if (m_id == 0u)
+        {
+            throw Error("Failed to allocate an OpenGL shader");
+        }
     }
 }

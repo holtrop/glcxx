@@ -6,27 +6,15 @@ namespace glcxx
 {
     Program::Program()
     {
-        m_id = 0u;
+        allocate();
     }
 
     Program::~Program()
     {
-        if (m_id > 0u)
-        {
-            glDeleteProgram(m_id);
-        }
+        glDeleteProgram(m_id);
     }
 
-    void Program::allocate()
-    {
-        m_id = glCreateProgram();
-        if (m_id == 0u)
-        {
-            throw Error("Failed to allocate an OpenGL program");
-        }
-    }
-
-    void Program::_create() const
+    void Program::link() const
     {
         glLinkProgram(m_id);
 
@@ -47,6 +35,15 @@ namespace glcxx
                 delete[] log;
             }
             throw Error(message);
+        }
+    }
+
+    void Program::allocate()
+    {
+        m_id = glCreateProgram();
+        if (m_id == 0u)
+        {
+            throw Error("Failed to allocate an OpenGL program");
         }
     }
 }
