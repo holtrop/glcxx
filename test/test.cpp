@@ -10,10 +10,6 @@ using namespace std;
 
 shared_ptr<glcxx::Array> array1;
 shared_ptr<glcxx::Array> array2;
-shared_ptr<glcxx::Shader> vs;
-shared_ptr<glcxx::Shader> vs2;
-shared_ptr<glcxx::Shader> fs;
-shared_ptr<glcxx::Shader> fs2;
 shared_ptr<glcxx::Program> program;
 shared_ptr<glcxx::Program> program2;
 shared_ptr<glcxx::Buffer> buffer;
@@ -28,13 +24,16 @@ bool init(void)
         array1 = make_shared<glcxx::Array>();
         array2 = make_shared<glcxx::Array>();
 
-        vs = glcxx::Shader::create_from_file(GL_VERTEX_SHADER, "test/vert.glsl");
-        fs = glcxx::Shader::create_from_file(GL_FRAGMENT_SHADER, "test/frag.glsl");
-        program = glcxx::Program::create(vs, fs, "position", 0);
+        program = glcxx::Program::create(
+          glcxx::Shader::create_from_file(GL_VERTEX_SHADER, "test/vert.glsl"),
+          glcxx::Shader::create_from_file(GL_FRAGMENT_SHADER, "test/frag.glsl"),
+          "position", 0);
 
-        vs2 = glcxx::Shader::create_from_file(GL_VERTEX_SHADER, "test/vert2.glsl");
-        fs2 = glcxx::Shader::create_from_file(GL_FRAGMENT_SHADER, "test/frag2.glsl");
-        program2 = glcxx::Program::create(vs2, fs2, "position", 0, "color", 1);
+        program2 = glcxx::Program::create(
+          glcxx::Shader::create_from_file(GL_VERTEX_SHADER, "test/vert2.glsl"),
+          glcxx::Shader::create_from_file(GL_FRAGMENT_SHADER, "test/frag2.glsl"),
+          "position", 0,
+          "color", 1);
 
         GLfloat coords[] = {
             -0.5, -0.5,
