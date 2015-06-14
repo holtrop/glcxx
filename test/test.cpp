@@ -35,26 +35,20 @@ bool init(void)
           "position", 0,
           "color", 1);
 
-        GLfloat coords[] = {
-            -0.5, -0.5,
-            0.5, -0.5,
-            0.5, 0.5,
-            -0.5, 0.5,
-        };
-        buffer = glcxx::Buffer::create(GL_ARRAY_BUFFER, GL_STATIC_DRAW, &coords, sizeof(coords));
+        buffer = glcxx::Buffer::create(GL_ARRAY_BUFFER, GL_STATIC_DRAW,
+                                       {-0.5, -0.5,
+                                        0.5, -0.5,
+                                        0.5, 0.5,
+                                        -0.5, 0.5});
 
-        GLfloat coords2[] = {
-            0.2, 0.2,
-            0.9, 0.2,
-            0.9, 0.9,
-        };
-        buffer2 = glcxx::Buffer::create(GL_ARRAY_BUFFER, GL_STATIC_DRAW, &coords2, sizeof(coords2));
-        GLfloat colors[] = {
-            1.0, 0.1, 0.1, 1.0,
-            0.1, 1.0, 0.1, 1.0,
-            0.1, 0.1, 1.0, 1.0,
-        };
-        buffer3 = glcxx::Buffer::create(GL_ARRAY_BUFFER, GL_STATIC_DRAW, &colors, sizeof(colors));
+        buffer2 = glcxx::Buffer::create(GL_ARRAY_BUFFER, GL_STATIC_DRAW,
+                                        {0.2, 0.2,
+                                         0.9, 0.2,
+                                         0.9, 0.9});
+        buffer3 = glcxx::Buffer::create(GL_ARRAY_BUFFER, GL_STATIC_DRAW,
+                                        {1.0, 0.1, 0.1, 1.0,
+                                         0.1, 1.0, 0.1, 1.0,
+                                         0.1, 0.1, 1.0, 1.0});
 
         array1->bind();
         glEnableVertexAttribArray(0);
