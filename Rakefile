@@ -18,6 +18,10 @@ task :lib do
   end
 end
 
+task :doxygen do
+  sh(*%w[doxygen Doxyfile])
+end
+
 task :test do
   base_env.clone do |env|
     env.build_root = "build/test"
