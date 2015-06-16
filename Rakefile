@@ -7,6 +7,7 @@ base_env = Rscons::Environment.new do |env|
   env["CPPDEFINES"] << %[GLCXX_GL_INCLUDE="GL3/gl3w.h"]
   env["CCFLAGS"] += %w[-Wall]
   env["CXXFLAGS"] += %w[-std=gnu++11]
+  env["CXXSUFFIX"] = %w[.cc .cpp]
 end
 
 task :lib do
