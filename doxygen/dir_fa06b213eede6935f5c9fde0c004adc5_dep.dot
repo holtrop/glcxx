@@ -1,0 +1,9 @@
+digraph "src/glcxx" {
+  compound=true
+  node [ fontsize="10", fontname="Helvetica"];
+  edge [ labelfontsize="10", labelfontname="Helvetica"];
+  subgraph clusterdir_68267d1309a1af8e8297ef4c3efbcdba {
+    graph [ bgcolor="#ddddee", pencolor="black", label="src" fontname="Helvetica", fontsize="10", URL="dir_68267d1309a1af8e8297ef4c3efbcdba.html"]
+  dir_fa06b213eede6935f5c9fde0c004adc5 [shape=box, label="glcxx", style="filled", fillcolor="#eeeeff", pencolor="black", URL="dir_fa06b213eede6935f5c9fde0c004adc5.html"];
+  }
+}
