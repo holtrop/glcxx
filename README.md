@@ -1,13 +1,25 @@
 # glcxx
 
-glcxx is a Modern C++ Interface to OpenGL Object Management.
+glcxx is a Modern C++ Interface for OpenGL Object Management.
+
+It provides an object-oriented interface for the following OpenGL objects:
+
+- Array (VAO)
+- Buffer (VBO)
+- Shader
+- Program
+
+glcxx is not an OpenGL loading library. It does not provide window or OpenGL
+context creation.
+Other libraries such as GL3W, GLEW, SDL, Qt, GTK, etc... can be used in
+conjunction with glcxx.
 
 ## Features
 
-### C++11
+### Modern C++11 API
 
-glcxx uses C++11 features such as initializer_list and variadic templates to
-provide a user-friendly API.
+glcxx uses modern C++11 features such as initializer_list and variadic
+templates to provide a user-friendly API.
 For example, an OpenGL buffer can be allocated and filled with data with a
 a single call:
 
@@ -15,6 +27,13 @@ a single call:
 auto buffer = glcxx::Buffer::create(GL_ARRAY_BUFFER, GL_STATIC_DRAW,
                                     {-1, -1, 1, -1, 1, 1, -1, 1});
 ```
+
+## Integrating onto a Project
+
+glcxx can be imported into an OpenGL project as a subdirectory and built along
+with the project. The top-level `include` directory needs to be added to the
+C++ include path, and the *.cpp sources under the `src` directory need to be
+compiled and linked with the project.
 
 ## License
 
