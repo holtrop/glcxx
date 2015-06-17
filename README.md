@@ -28,6 +28,10 @@ auto buffer = glcxx::Buffer::create(GL_ARRAY_BUFFER, GL_STATIC_DRAW,
                                     {-1, -1, 1, -1, 1, 1, -1, 1});
 ```
 
+## Documentation
+
+[https://holtrop.github.io/glcxx/doxygen/annotated.html](https://holtrop.github.io/glcxx/doxygen/annotated.html)
+
 ## Integrating onto a Project
 
 glcxx can be imported into an OpenGL project as a subdirectory and built along
