@@ -39,6 +39,9 @@ with the project. The top-level `include` directory needs to be added to the
 C++ include path, and the *.cpp sources under the `src` directory need to be
 compiled and linked with the project.
 
+glcxx headers need access to an OpenGL header. The integrating project should
+define the macro `GLCXX_GL_INCLUDE` to a string naming the include file to use.
+
 ## License
 
 glcxx is licensed under the [MIT License](LICENSE).
