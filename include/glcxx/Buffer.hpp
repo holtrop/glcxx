@@ -74,6 +74,19 @@ namespace glcxx
             /**
              * Factory method to construct a Buffer.
              *
+             * This method does not fill the buffer with any data.
+             *
+             * @return std::shared_ptr to the created Buffer.
+             */
+            static std::shared_ptr<Buffer>
+            create()
+            {
+                return std::make_shared<Buffer>();
+            }
+
+            /**
+             * Factory method to construct a Buffer and fill it with data.
+             *
              * @param target Buffer target (e.g. GL_ARRAY_BUFFER).
              * @param usage Buffer usage hint (e.g. GL_STATIC_DRAW).
              * @param ptr Pointer to data to load in buffer.
@@ -90,7 +103,7 @@ namespace glcxx
             }
 
             /**
-             * Factory method to construct a Buffer.
+             * Factory method to construct a Buffer and fill it with data.
              *
              * @param target Buffer target (e.g. GL_ARRAY_BUFFER).
              * @param usage Buffer usage hint (e.g. GL_STATIC_DRAW).
@@ -106,7 +119,7 @@ namespace glcxx
             }
 
             /**
-             * Factory method to construct a Buffer.
+             * Factory method to construct a Buffer and fill it with data.
              *
              * @param target Buffer target (e.g. GL_ARRAY_BUFFER).
              * @param usage Buffer usage hint (e.g. GL_STATIC_DRAW).

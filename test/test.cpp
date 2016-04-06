@@ -33,7 +33,7 @@ bool init(void)
                                         0.5, 0.5,
                                         -0.5, 0.5});
 
-        quad_array = make_shared<glcxx::Array>();
+        quad_array = glcxx::Array::create();
 
         quad_array->bind();
         glEnableVertexAttribArray(0);
@@ -52,7 +52,7 @@ bool init(void)
                                                                 1.0, 1.0,
                                                                 0.0, 1.0});
 
-        textured_quad_array = make_shared<glcxx::Array>();
+        textured_quad_array = glcxx::Array::create();
 
         textured_quad_array->bind();
         glEnableVertexAttribArray(0);
@@ -78,7 +78,7 @@ bool init(void)
                                          0.1, 1.0, 0.1, 1.0,
                                          0.1, 0.1, 1.0, 1.0});
 
-        triangle_array = make_shared<glcxx::Array>();
+        triangle_array = glcxx::Array::create();
 
         triangle_array->bind();
         glEnableVertexAttribArray(0);

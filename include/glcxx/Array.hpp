@@ -2,6 +2,7 @@
 #define GLCXX_ARRAY_HPP
 
 #include "glcxx/gl.hpp"
+#include <memory>
 
 namespace glcxx
 {
@@ -35,6 +36,17 @@ namespace glcxx
              * @return The buffer ID.
              */
             GLuint id() const { return m_id; }
+
+            /**
+             * Factory method to construct a Array.
+             *
+             * @return std::shared_ptr to the created Array.
+             */
+            static std::shared_ptr<Array>
+            create()
+            {
+                return std::make_shared<Array>();
+            }
 
         protected:
             /**
