@@ -6,5 +6,6 @@
 #include "glcxx/Error.hpp"
 #include "glcxx/Program.hpp"
 #include "glcxx/Shader.hpp"
+#include "glcxx/Texture.hpp"
 
 #endif
