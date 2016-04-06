@@ -8,60 +8,63 @@ using namespace std;
 #define WIDTH   800
 #define HEIGHT  600
 
-shared_ptr<glcxx::Array> array1;
-shared_ptr<glcxx::Array> array2;
-shared_ptr<glcxx::Program> program;
-shared_ptr<glcxx::Program> program2;
-shared_ptr<glcxx::Buffer> buffer;
-shared_ptr<glcxx::Buffer> buffer2;
-shared_ptr<glcxx::Buffer> buffer3;
+shared_ptr<glcxx::Array> quad_array;
+shared_ptr<glcxx::Program> quad_program;
+shared_ptr<glcxx::Buffer> quad_geom_buffer;
+
+shared_ptr<glcxx::Array> triangle_array;
+shared_ptr<glcxx::Program> triangle_program;
+shared_ptr<glcxx::Buffer> triangle_geom_buffer;
+shared_ptr<glcxx::Buffer> triangle_color_buffer;
 
 bool init(void)
 {
     glClearColor (0.0, 0.0, 0.0, 0.0);
     try
     {
-        array1 = make_shared<glcxx::Array>();
-        array2 = make_shared<glcxx::Array>();
-
-        program = glcxx::Program::create(
-          glcxx::Shader::create_from_file(GL_VERTEX_SHADER, "test/vert.glsl"),
-          glcxx::Shader::create_from_file(GL_FRAGMENT_SHADER, "test/frag.glsl"),
-          "position", 0);
-
-        program2 = glcxx::Program::create(
-          glcxx::Shader::create_from_file(GL_VERTEX_SHADER, "test/vert2.glsl"),
-          glcxx::Shader::create_from_file(GL_FRAGMENT_SHADER, "test/frag2.glsl"),
-          "position", 0,
-          "color", 1);
-
-        buffer = glcxx::Buffer::create(GL_ARRAY_BUFFER, GL_STATIC_DRAW,
+        quad_geom_buffer = glcxx::Buffer::create(GL_ARRAY_BUFFER, GL_STATIC_DRAW,
                                        {-0.5, -0.5,
                                         0.5, -0.5,
                                         0.5, 0.5,
                                         -0.5, 0.5});
 
-        buffer2 = glcxx::Buffer::create(GL_ARRAY_BUFFER, GL_STATIC_DRAW,
+        quad_array = make_shared<glcxx::Array>();
+
+        quad_array->bind();
+        glEnableVertexAttribArray(0);
+        quad_geom_buffer->bind();
+        glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), NULL);
+
+        quad_program = glcxx::Program::create(
+          glcxx::Shader::create_from_file(GL_VERTEX_SHADER, "test/vert.glsl"),
+          glcxx::Shader::create_from_file(GL_FRAGMENT_SHADER, "test/frag.glsl"),
+          "position", 0);
+
+
+        triangle_geom_buffer = glcxx::Buffer::create(GL_ARRAY_BUFFER, GL_STATIC_DRAW,
                                         {0.2, 0.2,
                                          0.9, 0.2,
                                          0.9, 0.9});
-        buffer3 = glcxx::Buffer::create(GL_ARRAY_BUFFER, GL_STATIC_DRAW,
+        triangle_color_buffer = glcxx::Buffer::create(GL_ARRAY_BUFFER, GL_STATIC_DRAW,
                                         {1.0, 0.1, 0.1, 1.0,
                                          0.1, 1.0, 0.1, 1.0,
                                          0.1, 0.1, 1.0, 1.0});
 
-        array1->bind();
-        glEnableVertexAttribArray(0);
-        buffer->bind();
-        glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), NULL);
+        triangle_array = make_shared<glcxx::Array>();
 
-        array2->bind();
+        triangle_array->bind();
         glEnableVertexAttribArray(0);
         glEnableVertexAttribArray(1);
-        buffer2->bind();
+        triangle_geom_buffer->bind();
         glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), NULL);
-        buffer3->bind();
+        triangle_color_buffer->bind();
         glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), NULL);
+
+        triangle_program = glcxx::Program::create(
+          glcxx::Shader::create_from_file(GL_VERTEX_SHADER, "test/vert2.glsl"),
+          glcxx::Shader::create_from_file(GL_FRAGMENT_SHADER, "test/frag2.glsl"),
+          "position", 0,
+          "color", 1);
     }
     catch (glcxx::Error & e)
     {
@@ -75,14 +78,14 @@ void display(SDL_Window * window)
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    array1->bind();
-    program->use();
-    GLint uniform_location = program->get_uniform_location("color");
+    quad_array->bind();
+    quad_program->use();
+    GLint uniform_location = quad_program->get_uniform_location("color");
     glUniform4f(uniform_location, 1.0, 0.6, 0.2, 1.0);
     glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
 
-    array2->bind();
-    program2->use();
+    triangle_array->bind();
+    triangle_program->use();
     glDrawArrays(GL_TRIANGLE_FAN, 0, 3);
 
     SDL_GL_SwapWindow(window);
