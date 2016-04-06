@@ -9,3 +9,11 @@ clean:
 .PHONY: distclean
 distclean:
 	./waf distclean
+
+.PHONY: install
+install:
+	./waf install
+
+.PHONY: uninstall
+uninstall:
+	./waf uninstall
