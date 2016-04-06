@@ -1,3 +1,4 @@
-/.rsconscache
-/build
+/build/
 /doxygen/
+/.waf*
+/.lock-waf*
