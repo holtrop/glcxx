@@ -5,6 +5,7 @@ build:
 .PHONY: clean
 clean:
 	./waf clean
+	rm -rf doc
 
 .PHONY: distclean
 distclean:
@@ -17,3 +18,7 @@ install:
 .PHONY: uninstall
 uninstall:
 	./waf uninstall
+
+.PHONY: doc
+doc:
+	doxygen Doxyfile

@@ -1,4 +1,4 @@
 /build/
-/doxygen/
+/doc/
 /.waf*
 /.lock-waf*
