@@ -8,6 +8,7 @@ It provides an object-oriented interface for the following OpenGL objects:
 - Buffer (VBO)
 - Shader
 - Program
+- Texture
 
 glcxx is not an OpenGL loading library. It does not provide window or OpenGL
 context creation.
