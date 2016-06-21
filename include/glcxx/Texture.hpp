@@ -1,3 +1,8 @@
+/**
+ * @file
+ *
+ * C++ wrapper for an OpenGL texture object.
+ */
 #ifndef GLCXX_TEXTURE_HPP
 #define GLCXX_TEXTURE_HPP
 

@@ -1,3 +1,8 @@
+/**
+ * @file
+ *
+ * C++ wrapper for an OpenGL shader object.
+ */
 #ifndef GLCXX_SHADER_HPP
 #define GLCXX_SHADER_HPP
 

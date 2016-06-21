@@ -1,3 +1,8 @@
+/**
+ * @file
+ *
+ * C++ exceptions for glcxx.
+ */
 #ifndef GLCXX_ERROR_HPP
 #define GLCXX_ERROR_HPP
 

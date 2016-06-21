@@ -1,3 +1,8 @@
+/**
+ * @file
+ *
+ * Main glcxx include file. Including this file will include all glcxx classes.
+ */
 #ifndef GLCXX_HPP
 #define GLCXX_HPP
 

@@ -1,3 +1,8 @@
+/**
+ * @file
+ *
+ * C++ wrapper for an OpenGL program object.
+ */
 #ifndef GLCXX_PROGRAM_HPP
 #define GLCXX_PROGRAM_HPP
 

@@ -1,3 +1,8 @@
+/**
+ * @file
+ *
+ * C++ wrapper for an OpenGL vertex array object.
+ */
 #ifndef GLCXX_ARRAY_HPP
 #define GLCXX_ARRAY_HPP
 

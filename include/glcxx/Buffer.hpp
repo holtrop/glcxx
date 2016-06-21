@@ -1,3 +1,8 @@
+/**
+ * @file
+ *
+ * C++ wrapper for an OpenGL buffer object.
+ */
 #ifndef GLCXX_BUFFER_HPP
 #define GLCXX_BUFFER_HPP
 
